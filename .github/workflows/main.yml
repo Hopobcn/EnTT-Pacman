@@ -5,7 +5,7 @@ on: [push]
 
 jobs:
   build_linux:
-    container: conanio/gcc7
+    container: hopobcn/conan:gcc-7
     
     runs-on: ${{ matrix.os }}
     strategy:
