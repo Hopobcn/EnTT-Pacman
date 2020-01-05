@@ -1,0 +1,27 @@
+name: CI
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Install conan
+      run: pip install conan
+    - name: Initialize conan
+      run: conan user
+    - name: Show {conan,cmake} versions
+      run: |
+        conan --version
+        cmake --version
+    - name: Build
+      run: |
+        conan profile new default --detect
+        mkdir build
+        cd build
+        conan install ..
+        cmake -DCMAKE_BUILD_TYPE=Release ..
+        cmake --build .
