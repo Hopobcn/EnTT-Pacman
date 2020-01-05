@@ -17,13 +17,14 @@ jobs:
     - uses: actions/checkout@v1
       with:
         fetch-depth: 1
-    - name: Build entt-packman
-      shell: bash
+    - name: Install conan
+      run: pip install conan
+    - name: Initialize conan
       run: |
-        pip install conan
         conan config home
         conan user
         conan --version
+    - name: Build app
         cmake --version
         conan profile new default --detect
         mkdir build && cd build
