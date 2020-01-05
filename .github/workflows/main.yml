@@ -25,6 +25,7 @@ jobs:
         conan user
         conan --version
     - name: Build app
+      run: |
         cmake --version
         conan profile new default --detect
         mkdir build && cd build
