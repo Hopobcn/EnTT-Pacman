@@ -21,7 +21,7 @@ jobs:
       run: pip install conan
     - name: Initialize conan
       run: |
-        cpy -r /home/conan/.conan /github/home/.conan
+        cp -r /home/conan/.conan /github/home/.conan
         conan config home
         conan user
         conan --version
