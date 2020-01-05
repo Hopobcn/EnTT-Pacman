@@ -21,8 +21,7 @@ jobs:
       run: pip install conan
     - name: Initialize conan
       run: |
-        sudo cp -r /home/conan/.conan /github/home/.conan
-        conan config home
+        conan config install https://github.com/Hopobcn/conan-config.git
         conan user
         conan --version
     - name: Build app
