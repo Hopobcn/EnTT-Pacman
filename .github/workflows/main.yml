@@ -16,8 +16,9 @@ jobs:
     - uses: actions/checkout@v1
       with:
         fetch-depth: 1
-    - name: Build entt-packman
+    - name: setup dockerimage
       uses: docker://conanio/gcc7
+    - name: Build entt-packman
       shell: bash
       run: |
         pip install conan
@@ -40,7 +41,7 @@ jobs:
     
     steps:
     - uses: actions/checkout@v1
-    - name: Build entt-packman on windows
+    - name: Build entt-packman
       shell: bash
       run: |
         pip install conan
