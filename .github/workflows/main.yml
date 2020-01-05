@@ -17,6 +17,8 @@ jobs:
       with:
         fetch-depth: 1
     - name: Build entt-packman
+      uses: docker://conanio/gcc7
+      shell: bash
       run: |
         pip install conan
         conan user
@@ -34,11 +36,12 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        os: [windows-latest, windows-2016]
+        os: [windows-latest]
     
     steps:
     - uses: actions/checkout@v1
-    - name: configure
+    - name: Build entt-packman on windows
+      shell: bash
       run: |
         pip install conan
         conan user
