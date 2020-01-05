@@ -1,0 +1,57 @@
+name: CI
+
+on: [push]
+
+
+jobs:
+  build_linux:
+    container: hopobcn/conan:gcc-7
+    
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: true
+      matrix:
+        os: [ubuntu-18.04]
+        
+    steps:
+    - uses: actions/checkout@v1
+      with:
+        fetch-depth: 1
+    - name: Install conan
+      run: pip install conan
+    - name: Initialize conan
+      run: |
+        conan config install https://github.com/Hopobcn/conan-config.git
+        conan user
+        conan --version
+    - name: Build app
+      run: |
+        cmake --version
+        conan profile new default --detect
+        mkdir build && cd build
+        conan install -s build_type=Debug ..
+        cmake -DCMAKE_BUILD_TYPE=Debug ..
+        cmake --build .
+
+#  build-windows:
+
+#    runs-on: ${{ matrix.os }}
+#    strategy:
+#      fail-fast: true
+#      matrix:
+#        os: [windows-latest]
+    
+#    steps:
+#    - uses: actions/checkout@v1
+#    - name: Build entt-packman
+#      shell: bash
+#      run: |
+#        pip install conan
+#        conan user
+#        conan --version
+#        cmake --version
+#        conan profile new default --detect
+#        mkdir build && cd build && cmake ..
+#        conan install -s build_type=Debug ..
+#        cmake ..
+#        cmake --build . --config Debug
